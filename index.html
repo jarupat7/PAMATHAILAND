@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบรับสมัครออนไลน์ - PAMA THAILAND ครั้งที่ 26 / 2569</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --primary-dark: #172554;
+      --secondary: #0d9488;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --success: #16a34a;
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Prompt', 'Sarabun', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .container { max-width: 52rem; margin: 0 auto; }
+
+    /* Top Announcement Banner */
+    .announcement-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+      color: white;
+      border-radius: 1rem;
+      padding: 1.75rem 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .announcement-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 250px;
+      height: 250px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .badge-event {
+      display: inline-block;
+      background: #f59e0b;
+      color: #78350f;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+    .main-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    @media (min-width: 640px) {
+      .main-title { font-size: 2.1rem; }
+    }
+    .sub-title {
+      font-size: 0.95rem;
+      opacity: 0.92;
+      font-weight: 400;
+    }
+
+    .info-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+    }
+    .info-tag {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      padding: 0.35rem 0.85rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Steps Tracker */
+    .step-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 28rem;
+      margin: 0 auto 2rem;
+      width: 100%;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+      width: 4.5rem;
+    }
+    .step-circle {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      transition: all 0.3s;
+    }
+    .step-circle.active { background-color: var(--primary-light); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2); }
+    .step-circle.inactive { background-color: var(--border-color); color: var(--text-muted); }
+    .step-label {
+      font-size: 0.75rem;
+      margin-top: 0.4rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .step-item.active .step-label { color: var(--primary); }
+    .step-line {
+      flex: 1;
+      height: 0.25rem;
+      margin: 0 0.5rem;
+      background-color: var(--border-color);
+      transition: background-color 0.3s;
+      transform: translateY(-0.75rem);
+    }
+    .step-line.active { background-color: var(--primary-light); }
+
+    /* Card Box */
+    .card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 640px) { .card { padding: 2.25rem; } }
+
+    /* Type Switcher */
+    .type-switcher {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      background: #f8fafc;
+      padding: 0.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.75rem;
+    }
+    .type-btn {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    .type-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      font-weight: 700;
+    }
+
+    /* Form Fields */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+    }
+    @media (min-width: 640px) {
+      .form-grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .form-grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .col-span-2 { grid-column: span 2; }
+      .col-span-3 { grid-column: span 3; }
+    }
+
+    .form-group { display: flex; flex-direction: column; }
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #334155;
+    }
+    .form-label .req { color: var(--danger); }
+    .input-control {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text-main);
+      background: white;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .input-control:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .input-control.input-error {
+      border-color: var(--danger) !important;
+      background-color: #fef2f2 !important;
+    }
+    .err-msg {
+      color: var(--danger);
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      font-weight: 500;
+      min-height: 1rem;
+    }
+
+    /* Radio / Checkbox Cards */
+    .selection-card {
+      border: 2px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+      background: white;
+    }
+    .selection-card:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+    }
+    .selection-card.selected {
+      border-color: var(--primary-light);
+      background: #eff6ff;
+    }
+    .selection-card input[type="checkbox"],
+    .selection-card input[type="radio"] {
+      width: 1.25rem;
+      height: 1.25rem;
+      accent-color: var(--primary-light);
+    }
+
+    .section-header {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.4rem;
+      margin: 1.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Price Summary Box */
+    .price-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+      border: 1.5px solid #cbd5e1;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      font-size: 0.95rem;
+    }
+    .price-total {
+      border-top: 2px dashed #cbd5e1;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #b91c1c;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 1rem 1.15rem;
+      border-radius: 0.65rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .alert-info { background: #eff6ff; border-left: 4px solid var(--primary-light); color: #1e40af; }
+    .alert-warning { background: #fffbeb; border-left: 4px solid var(--accent); color: #92400e; }
+    .alert-danger { background: #fef2f2; border-left: 4px solid var(--danger); color: #991b1b; }
+    .alert-success { background: #ecfdf5; border-left: 4px solid var(--success); color: #065f46; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      border-radius: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: var(--primary-light); color: white; }
+    .btn-primary:hover:not(:disabled) { background: #1d4ed8; }
+    .btn-success { background: var(--success); color: white; font-weight: 700; padding: 0.85rem 1.75rem; }
+    .btn-success:hover:not(:disabled) { background: #15803d; }
+    .btn-secondary { background: #e2e8f0; color: #334155; }
+    .btn-secondary:hover:not(:disabled) { background: #cbd5e1; }
+    .btn-danger { background: #fee2e2; color: #b91c1c; padding: 0.35rem 0.65rem; font-size: 0.8rem; }
+    .btn-danger:hover { background: #fecaca; }
+
+    /* Student Table */
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    .student-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: white;
+    }
+    .student-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      padding: 0.65rem 0.5rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+    .student-table td {
+      padding: 0.5rem;
+      border: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    /* Modal / Overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 1rem;
+    }
+    .overlay.hidden { display: none !important; }
+    .modal-box {
+      background: white;
+      border-radius: 1rem;
+      max-width: 28rem;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 3.5rem;
+      height: 3.5rem;
+      border: 4px solid #e2e8f0;
+      border-top-color: var(--primary-light);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.25rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .font-bold { font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header Banner -->
+    <div class="announcement-banner">
+      <span class="badge-event">เปิดรับสมัครถึง 30 ตุลาคม 2569</span>
+      <h1 class="main-title">PAMA THAILAND</h1>
+      <p class="sub-title">การแข่งขันคณิตคิดเร็วและภาษาอังกฤษ ชิงแชมป์ประเทศไทย ครั้งที่ 26 / 2569</p>
+      
+      <div class="info-strip">
+        <div class="info-tag">
+          📅 วันเสาร์ที่ 12 ธันวาคม 2569 (09.00 - 17.00 น.)
+        </div>
+        <div class="info-tag">
+          📍 หอประชุมใหญ่ มหาวิทยาลัยธุรกิจบัณฑิตย์ กรุงเทพฯ
+        </div>
+        <div class="info-tag">
+          💬 Line: @090pkhtw
+        </div>
+      </div>
+    </div>
+
+    <!-- Stepper Tracker -->
+    <div class="step-wrapper">
+      <div class="step-item active" id="step-tracker-1">
+        <div class="step-circle active" id="circle-1">1</div>
+        <span class="step-label">กรอกข้อมูล</span>
+      </div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-item" id="step-tracker-2">
+        <div class="step-circle inactive" id="circle-2">2</div>
+        <span class="step-label">เลือกวิชา</span>
+      </div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-item" id="step-tracker-3">
+        <div class="step-circle inactive" id="circle-3">3</div>
+        <span class="step-label">ยืนยันข้อมูล</span>
+      </div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card">
+
+      <!-- Registration Mode Switcher -->
+      <div class="type-switcher" id="typeSwitcher">
+        <button type="button" class="type-btn active" id="btnTypeInd" onclick="switchType('individual')">
+          👤 สมัครในนามบุคคล
+        </button>
+        <button type="button" class="type-btn" id="btnTypeSch" onclick="switchType('school')">
+          🏫 สมัครในนามโรงเรียน
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- VIEW 1: INDIVIDUAL REGISTRATION            -->
+      <!-- ========================================== -->
+      <div id="viewIndividual">
+        
+        <!-- STEP 1: INDIVIDUAL INFO -->
+        <div id="ind-step-1">
+          <div class="alert alert-info">
+            <div>
+              <strong>คำแนะนำ:</strong> กรุณากรอกข้อมูลชื่อ-นามสกุลให้ถูกต้อง ชัดเจน เพื่อความถูกต้องในการจัดพิมพ์เกียรติบัตร และระบุอีเมลที่ใช้งานจริงเพื่อรับรหัส TAG ID ยืนยันการสมัคร
+            </div>
+          </div>
+
+          <div class="section-header">ข้อมูลผู้สมัคร</div>
+          <div class="form-grid form-grid-3">
+            <div class="form-group">
+              <label class="form-label">คำนำหน้า <span class="req">*</span></label>
+              <select id="indPrefix" class="input-control" onchange="clearErr('indPrefix')">
+                <option value="ด.ช.">ด.ช.</option>
+                <option value="ด.ญ.">ด.ญ.</option>
+                <option value="นาย">นาย</option>
+                <option value="น.ส.">น.ส.</option>
+              </select>
+              <span id="err-indPrefix" class="err-msg"></span>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label">ชื่อ - นามสกุล ผู้สมัคร <span class="req">*</span></label>
+              <input type="text" id="indFullName" class="input-control" placeholder="เช่น เด็กชายรักเรียน ขยันยิ่ง" oninput="clearErr('indFullName')">
+              <span id="err-indFullName" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-grid form-grid-3">
+            <div class="form-group">
+              <label class="form-label">วัน/เดือน/ปีเกิด <span class="req">*</span></label>
+              <input type="date" id="indBirthDate" class="input-control" onchange="calculateIndAge(); clearErr('indBirthDate')">
+              <span id="err-indBirthDate" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">อายุ (ปี) <span class="req">*</span></label>
+              <input type="number" id="indAge" class="input-control" placeholder="เช่น 9" min="3" max="25" oninput="clearErr('indAge')">
+              <span id="err-indAge" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ระดับชั้นที่กำลังศึกษา <span class="req">*</span></label>
+              <select id="indLevel" class="input-control" onchange="clearErr('indLevel')">
+                <option value="">-- เลือกระดับชั้น --</option>
+                <option value="อนุบาล 2">อนุบาล 2</option>
+                <option value="อนุบาล 3">อนุบาล 3</option>
+                <option value="ประถมศึกษาปีที่ 1">ประถมศึกษาปีที่ 1</option>
+                <option value="ประถมศึกษาปีที่ 2">ประถมศึกษาปีที่ 2</option>
+                <option value="ประถมศึกษาปีที่ 3">ประถมศึกษาปีที่ 3</option>
+                <option value="ประถมศึกษาปีที่ 4">ประถมศึกษาปีที่ 4</option>
+                <option value="ประถมศึกษาปีที่ 5">ประถมศึกษาปีที่ 5</option>
+                <option value="ประถมศึกษาปีที่ 6">ประถมศึกษาปีที่ 6</option>
+                <option value="มัธยมศึกษาตอนต้น">มัธยมศึกษาตอนต้น</option>
+                <option value="มัธยมศึกษาตอนปลาย">มัธยมศึกษาตอนปลาย</option>
+              </select>
+              <span id="err-indLevel" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label class="form-label">โรงเรียน <span class="req">*</span></label>
+              <input type="text" id="indSchool" class="input-control" placeholder="ชื่อโรงเรียนที่สังกัด" oninput="clearErr('indSchool')">
+              <span id="err-indSchool" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์โทรศัพท์มือถือ <span class="req">*</span></label>
+              <input type="tel" id="indPhone" class="input-control" placeholder="เช่น 0812345678" oninput="clearErr('indPhone')">
+              <span id="err-indPhone" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">LINE ID</label>
+              <input type="text" id="indLine" class="input-control" placeholder="ไอดีไลน์สำหรับการติดต่อ">
+            </div>
+            <div class="form-group">
+              <label class="form-label">อีเมล (รับรหัสยืนยัน TAG ID) <span class="req">*</span></label>
+              <input type="email" id="indEmail" class="input-control" placeholder="เช่น student@email.com" oninput="clearErr('indEmail')">
+              <span id="err-indEmail" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="section-header">ที่อยู่สำหรับติดต่อ / จัดส่งเอกสาร</div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group col-span-2">
+              <label class="form-label">บ้านเลขที่ / หมู่ / หมู่บ้าน / ถนน / ตำบล (แขวง)</label>
+              <input type="text" id="indAddress" class="input-control" placeholder="เช่น 123/45 หมู่ 6 ถ.งามวงศ์วาน ต.บางเขน">
+            </div>
+            <div class="form-group">
+              <label class="form-label">อำเภอ / เขต</label>
+              <input type="text" id="indDistrict" class="input-control" placeholder="เช่น เมืองนนทบุรี">
+            </div>
+            <div class="form-group">
+              <label class="form-label">จังหวัด <span class="req">*</span></label>
+              <input type="text" id="indProvince" class="input-control" placeholder="เช่น นนทบุรี" oninput="clearErr('indProvince')">
+              <span id="err-indProvince" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">รหัสไปรษณีย์</label>
+              <input type="text" id="indPostal" class="input-control" placeholder="เช่น 11000">
+            </div>
+          </div>
+
+          <div class="section-header">ข้อมูลผู้ปกครอง (บิดา / มารดา)</div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label class="form-label">ชื่อ - นามสกุล บิดา</label>
+              <input type="text" id="indFatherName" class="input-control" placeholder="ชื่อ-สกุล บิดา">
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์โทรศัพท์ บิดา</label>
+              <input type="tel" id="indFatherPhone" class="input-control" placeholder="เบอร์โทรบิดา">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ชื่อ - นามสกุล มารดา</label>
+              <input type="text" id="indMotherName" class="input-control" placeholder="ชื่อ-สกุล มารดา">
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์โทรศัพท์ มารดา</label>
+              <input type="tel" id="indMotherPhone" class="input-control" placeholder="เบอร์โทรมารดา">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: INDIVIDUAL SUBJECTS & SHIRT -->
+        <div id="ind-step-2" class="hidden">
+          <div class="alert alert-info">
+            <div>
+              <strong>อัตราค่าสมัคร:</strong><br>
+              • สมัคร 1 วิชา = <strong>600 บาท</strong> (คณิตคิดเร็ว หรือ ภาษาอังกฤษ)<br>
+              • สมัครทั้ง 2 วิชา = <strong>1,100 บาท</strong> (ลด 100 บาท)<br>
+              • เสื้อการแข่งขัน (ไม่บังคับ สั่งซื้อเพิ่มได้) = <strong>ตัวละ 200 บาท</strong>
+            </div>
+          </div>
+
+          <div class="section-header">เลือกวิชาที่ต้องการแข่งขัน <span class="req">*</span></div>
+          <div style="display: grid; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <label class="selection-card" id="cardSubMath">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="subMath" onchange="updateIndCost()">
+                <div>
+                  <div style="font-weight: 700; color: #1e3a8a;">คณิตคิดเร็ว (รหัสวิชา M)</div>
+                  <div style="font-size: 0.8rem; color: #64748b;">แข่งขัน 3 ชุด ตามระดับชั้น (อ.2 - ม.ปลาย)</div>
+                </div>
+              </div>
+              <div style="font-weight: 700; color: #2563eb;">600 บาท</div>
+            </label>
+
+            <label class="selection-card" id="cardSubEng">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <input type="checkbox" id="subEng" onchange="updateIndCost()">
+                <div>
+                  <div style="font-weight: 700; color: #1e3a8a;">ภาษาอังกฤษ (รหัสวิชา E)</div>
+                  <div style="font-size: 0.8rem; color: #64748b;">ข้อสอบ 50 ข้อ เวลา 15 นาที ฝนด้วย 2B (ป.1 - ม.ปลาย)</div>
+                </div>
+              </div>
+              <div style="font-weight: 700; color: #2563eb;">600 บาท</div>
+            </label>
+          </div>
+          <span id="err-indSubjects" class="err-msg"></span>
+
+          <div class="section-header">สั่งซื้อเสื้อการแข่งขัน (ไม่บังคับ)</div>
+          <label class="selection-card" style="margin-bottom: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <input type="checkbox" id="indBuyShirt" onchange="toggleIndShirt(this.checked); updateIndCost()">
+              <div>
+                <div style="font-weight: 700; color: #065f46;">ต้องการสั่งซื้อเสื้อการแข่งขัน PAMA THAILAND</div>
+                <div style="font-size: 0.8rem; color: #64748b;">(สามารถใส่เสื้อการแข่งขันเดิมที่มีอยู่แล้วได้)</div>
+              </div>
+            </div>
+            <div style="font-weight: 700; color: #059669;">200 บาท / ตัว</div>
+          </label>
+
+          <div id="indShirtSizeBox" class="hidden form-group" style="margin-bottom: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+            <label class="form-label">เลือกไซส์เสื้อ <span class="req">*</span></label>
+            <select id="indShirtSize" class="input-control" onchange="clearErr('indShirtSize')">
+              <option value="">-- กรุณาเลือกไซส์ --</option>
+              <option value="30">ไซส์ 30 (รอบอก 30 นิ้ว)</option>
+              <option value="34">ไซส์ 34 (รอบอก 34 นิ้ว)</option>
+              <option value="36 (S)">ไซส์ 36 (S)</option>
+              <option value="38 (M)">ไซส์ 38 (M)</option>
+              <option value="40 (L)">ไซส์ 40 (L)</option>
+              <option value="42 (XL)">ไซส์ 42 (XL)</option>
+              <option value="44 (2XL)">ไซส์ 44 (2XL)</option>
+              <option value="46 (3XL)">ไซส์ 46 (3XL)</option>
+            </select>
+            <span id="err-indShirtSize" class="err-msg"></span>
+            <div style="font-size: 0.78rem; color: #b45309; margin-top: 0.35rem;">
+              * กรุณาสั่งเสื้อภายใน 30 ต.ค. 2569 และระบุไซส์ให้ถูกต้อง ไม่สามารถเปลี่ยนไซส์ภายหลังได้
+            </div>
+          </div>
+
+          <!-- Price Summary Preview -->
+          <div class="price-box">
+            <div class="price-row">
+              <span>ค่าสมัครวิชาที่เลือก:</span>
+              <span id="indFeePreview" class="font-bold">0 บาท</span>
+            </div>
+            <div class="price-row">
+              <span>ค่าเสื้อการแข่งขัน:</span>
+              <span id="indShirtFeePreview" class="font-bold">0 บาท</span>
+            </div>
+            <div class="price-row price-total">
+              <span>ยอดเงินรวมทั้งสิ้น:</span>
+              <span id="indTotalPreview">0 บาท</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: INDIVIDUAL SUMMARY & CONFIRMATION -->
+        <div id="ind-step-3" class="hidden">
+          <div class="alert alert-info">
+            <div>
+              <strong>ตรวจสอบข้อมูลการสมัคร:</strong> โปรดตรวจสอบความถูกต้องของข้อมูลทั้งหมดก่อนกดยืนยัน ระบบจะทำการบันทึกข้อมูลและส่งอีเมลยืนยันพร้อมรหัส TAG ID ให้ทันที
+            </div>
+          </div>
+
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem;">
+            <div class="section-header" style="margin-top: 0;">สรุปข้อมูลผู้สมัคร</div>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 0.6rem; font-size: 0.92rem;">
+              <div><strong>ชื่อ-นามสกุล:</strong> <span id="sumIndName">-</span></div>
+              <div><strong>ระดับชั้น / โรงเรียน:</strong> <span id="sumIndLevelSchool">-</span></div>
+              <div><strong>วันเกิด / อายุ:</strong> <span id="sumIndBirthAge">-</span></div>
+              <div><strong>เบอร์โทรศัพท์:</strong> <span id="sumIndPhone">-</span></div>
+              <div><strong>อีเมลที่จะรับการแจ้งเตือน:</strong> <span id="sumIndEmail" style="color: #2563eb; font-weight: 700;">-</span></div>
+              <div><strong>วิชาที่สมัคร:</strong> <span id="sumIndSubjects" style="color: #1e3a8a; font-weight: 700;">-</span></div>
+              <div><strong>เสื้อการแข่งขัน:</strong> <span id="sumIndShirt">-</span></div>
+              <div style="font-size: 1.15rem; color: #dc2626; font-weight: 800; border-top: 1px dashed #cbd5e1; padding-top: 0.5rem; margin-top: 0.5rem;">
+                ยอดรวมที่ต้องชำระ: <span id="sumIndTotal">0 บาท</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank Account Info -->
+          <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+            <div>
+              <div style="font-weight: 700; margin-bottom: 0.35rem;">💳 บัญชีสำหรับโอนเงินชำระค่าสมัคร:</div>
+              1. <strong>ธนาคารทหารไทยธนชาต (ttb)</strong> สาขานนทบุรี | เลขที่ <strong>191-2-03977-1</strong> (ชื่อบัญชี: โรงเรียนจินตศึกษา)<br>
+              2. <strong>ธนาคารกสิกรไทย</strong> สาขานนทบุรี | เลขที่ <strong>559-2-10047-0</strong> (ชื่อบัญชี: PAMA THAILAND)
+            </div>
+          </div>
+
+          <!-- Email Notice Warning -->
+          <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+            <div>
+              <div style="font-weight: 700; margin-bottom: 0.25rem;">⚠️ สำคัญมาก: การตรวจสอบอีเมลยืนยัน</div>
+              ระบบจะจัดส่งอีเมลยืนยันพร้อมรหัส TAG ID จาก <strong>PAMATHAILANDAPP@gmail.com</strong> ทันทีหลังจากกดยืนยัน<br>
+              <strong>หากไม่พบอีเมลในกล่องจดหมายหลัก (Inbox) กรุณาตรวจสอบในโฟลเดอร์ "ถังขยะ" (Trash/Junk) หรือ "สแปมเมล" (Spam) ด้วยครับ</strong>
+            </div>
+          </div>
+
+          <!-- Agreement Checkbox -->
+          <label style="display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 1.5rem; cursor: pointer;">
+            <input type="checkbox" id="indAgree" style="margin-top: 0.25rem; width: 1.25rem; height: 1.25rem; accent-color: var(--primary-light);">
+            <span style="font-size: 0.88rem; color: #334155;">
+              ข้าพเจ้าขอรับรองว่าข้อมูลข้างต้นเป็นความจริงทุกประการ ได้อ่านและยอมรับระเบียบการแข่งขัน PAMA THAILAND ครั้งที่ 26 / 2569 เรียบร้อยแล้ว
+            </span>
+          </label>
+          <span id="err-indAgree" class="err-msg"></span>
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- VIEW 2: SCHOOL REGISTRATION                -->
+      <!-- ========================================== -->
+      <div id="viewSchool" class="hidden">
+
+        <!-- STEP 1: SCHOOL INFO -->
+        <div id="sch-step-1">
+          <div class="alert alert-info">
+            <div>
+              <strong>สำหรับการสมัครในนามโรงเรียน:</strong> ทางโรงเรียนสามารถส่งรายชื่อนักเรียนเข้าร่วมแข่งขันได้ไม่จำกัดจำนวน<br>
+              ★ โรงเรียนที่ส่งนักเรียนเกิน 50 คน รับโล่ประกาศเกียรติคุณ และทุนสนับสนุนโรงเรียนละ 2,000 บาท
+            </div>
+          </div>
+
+          <div class="section-header">ข้อมูลผู้ประสานงาน / อาจารย์ผู้รับผิดชอบ</div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group">
+              <label class="form-label">ชื่อ - นามสกุล ผู้ประสานงาน <span class="req">*</span></label>
+              <input type="text" id="schCoordName" class="input-control" placeholder="เช่น อาจารย์สมใจ ห่วงใยศิษย์" oninput="clearErr('schCoordName')">
+              <span id="err-schCoordName" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">ตำแหน่ง <span class="req">*</span></label>
+              <input type="text" id="schPosition" class="input-control" placeholder="เช่น หัวหน้ากลุ่มสาระการเรียนรู้คณิตศาสตร์" oninput="clearErr('schPosition')">
+              <span id="err-schPosition" class="err-msg"></span>
+            </div>
+            <div class="form-group col-span-2">
+              <label class="form-label">ชื่อโรงเรียน <span class="req">*</span></label>
+              <input type="text" id="schName" class="input-control" placeholder="ชื่อโรงเรียนเต็ม" oninput="clearErr('schName')">
+              <span id="err-schName" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์โทรศัพท์โรงเรียน</label>
+              <input type="tel" id="schTel" class="input-control" placeholder="เช่น 02-123-4567">
+            </div>
+            <div class="form-group">
+              <label class="form-label">เบอร์มือถือผู้ประสานงาน <span class="req">*</span></label>
+              <input type="tel" id="schMobile" class="input-control" placeholder="เช่น 089-893-7717" oninput="clearErr('schMobile')">
+              <span id="err-schMobile" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">LINE ID</label>
+              <input type="text" id="schLine" class="input-control" placeholder="ไอดีไลน์สำหรับการติดต่อ">
+            </div>
+            <div class="form-group">
+              <label class="form-label">อีเมลสำหรับรับหลักฐาน (สำคัญ) <span class="req">*</span></label>
+              <input type="email" id="schEmail" class="input-control" placeholder="เช่น school@email.com" oninput="clearErr('schEmail')">
+              <span id="err-schEmail" class="err-msg"></span>
+            </div>
+          </div>
+
+          <div class="section-header">ที่ตั้งโรงเรียน</div>
+          <div class="form-grid form-grid-2">
+            <div class="form-group col-span-2">
+              <label class="form-label">ที่อยู่โรงเรียน (เลขที่ / ถนน)</label>
+              <input type="text" id="schAddress" class="input-control" placeholder="เช่น 456 ถ.ประชาชื่น">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ตำบล / แขวง</label>
+              <input type="text" id="schDistrict" class="input-control" placeholder="ตำบล/แขวง">
+            </div>
+            <div class="form-group">
+              <label class="form-label">อำเภอ / เขต</label>
+              <input type="text" id="schCity" class="input-control" placeholder="อำเภอ/เขต">
+            </div>
+            <div class="form-group">
+              <label class="form-label">จังหวัด <span class="req">*</span></label>
+              <input type="text" id="schProvince" class="input-control" placeholder="จังหวัด" oninput="clearErr('schProvince')">
+              <span id="err-schProvince" class="err-msg"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">รหัสไปรษณีย์</label>
+              <input type="text" id="schPostal" class="input-control" placeholder="รหัสไปรษณีย์">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: SCHOOL STUDENTS LIST -->
+        <div id="sch-step-2" class="hidden">
+          <div class="alert alert-info">
+            <div>
+              <strong>เพิ่มรายชื่อนักเรียน:</strong> กรอกรายชื่อนักเรียนที่ต้องการส่งแข่งขันทีละคน หรือเพิ่มหลายคนได้ตามต้องการ<br>
+              • ค่าสมัคร: 1 วิชา 600 บาท | 2 วิชา 1,100 บาท | สั่งเสื้อเพิ่ม ตัวละ 200 บาท
+            </div>
+          </div>
+
+          <div class="card" style="background: #f8fafc; border: 1.5px dashed #cbd5e1; padding: 1.25rem; margin-bottom: 1.5rem;">
+            <div style="font-weight: 700; color: #1e3a8a; margin-bottom: 0.75rem;">➕ เพิ่มข้อมูลนักเรียน</div>
+            <div class="form-grid form-grid-3">
+              <div class="form-group">
+                <label class="form-label">ชื่อ - สกุล นักเรียน <span class="req">*</span></label>
+                <input type="text" id="addStuName" class="input-control" placeholder="เช่น ด.ช.สมคิด ฉลาดล้ำ">
+              </div>
+              <div class="form-group">
+                <label class="form-label">ระดับชั้น <span class="req">*</span></label>
+                <select id="addStuLevel" class="input-control">
+                  <option value="อ.2">อ.2</option>
+                  <option value="อ.3">อ.3</option>
+                  <option value="ป.1">ป.1</option>
+                  <option value="ป.2">ป.2</option>
+                  <option value="ป.3">ป.3</option>
+                  <option value="ป.4">ป.4</option>
+                  <option value="ป.5">ป.5</option>
+                  <option value="ป.6">ป.6</option>
+                  <option value="ม.ต้น">ม.ต้น</option>
+                  <option value="ม.ปลาย">ม.ปลาย</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">วันเดือนปีเกิด / อายุ</label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="date" id="addStuBirth" class="input-control">
+                  <input type="number" id="addStuAge" class="input-control" placeholder="อายุ" style="max-width: 70px;">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-grid form-grid-3" style="margin-top: 0.75rem; align-items: flex-end;">
+              <div class="form-group">
+                <label class="form-label">วิชาที่สมัคร</label>
+                <div style="display: flex; gap: 1rem; padding-top: 0.35rem;">
+                  <label style="display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                    <input type="checkbox" id="addStuMath" checked> คณิต (M)
+                  </label>
+                  <label style="display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                    <input type="checkbox" id="addStuEng"> อังกฤษ (E)
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">เสื้อการแข่งขัน (+200 บาท)</label>
+                <select id="addStuShirt" class="input-control">
+                  <option value="-">ไม่รับเสื้อ</option>
+                  <option value="30">ไซส์ 30</option>
+                  <option value="34">ไซส์ 34</option>
+                  <option value="36 (S)">ไซส์ 36 (S)</option>
+                  <option value="38 (M)">ไซส์ 38 (M)</option>
+                  <option value="40 (L)">ไซส์ 40 (L)</option>
+                  <option value="42 (XL)">ไซส์ 42 (XL)</option>
+                  <option value="44 (2XL)">ไซส์ 44 (2XL)</option>
+                  <option value="46 (3XL)">ไซส์ 46 (3XL)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="addStudentToList()" style="width: 100%;">
+                  ➕ บันทึกลงตาราง
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table of Students -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div style="font-weight: 700;">รายชื่อนักเรียนที่เพิ่มแล้ว (<span id="stuCountBadge" style="color:#2563eb;">0</span> คน)</div>
+          </div>
+
+          <div class="table-container">
+            <table class="student-table" id="tableStudents">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">#</th>
+                  <th>ชื่อ - สกุล นักเรียน</th>
+                  <th style="width: 80px;">ระดับชั้น</th>
+                  <th style="width: 90px;">วันเกิด/อายุ</th>
+                  <th style="width: 60px;">คณิต</th>
+                  <th style="width: 60px;">อังกฤษ</th>
+                  <th style="width: 80px;">เสื้อ</th>
+                  <th style="width: 80px;">ยอดเงิน</th>
+                  <th style="width: 60px;">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody">
+                <tr>
+                  <td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                    ยังไม่มีรายชื่อนักเรียน กรุณากรอกแบบฟอร์มด้านบนแล้วกด "➕ บันทึกลงตาราง"
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <span id="err-schStudents" class="err-msg"></span>
+
+          <!-- Price Box for School -->
+          <div class="price-box">
+            <div class="price-row">
+              <span>จำนวนนักเรียนทั้งหมด:</span>
+              <span id="schTotalStudentsDisplay" class="font-bold">0 คน</span>
+            </div>
+            <div class="price-row price-total">
+              <span>ยอดเงินรวมทั้งสิ้นที่ต้องชำระ:</span>
+              <span id="schTotalDisplay">0 บาท</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: SCHOOL SUMMARY & CONFIRMATION -->
+        <div id="sch-step-3" class="hidden">
+          <div class="alert alert-info">
+            <div>
+              <strong>ตรวจสอบข้อมูลโรงเรียน:</strong> ตรวจสอบรายชื่อนักเรียนและยอดชำระเงินก่อนยืนยันการสมัคร
+            </div>
+          </div>
+
+          <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1.5rem;">
+            <div class="section-header" style="margin-top: 0;">สรุปข้อมูลโรงเรียน</div>
+            <div style="display: grid; gap: 0.5rem; font-size: 0.92rem;">
+              <div><strong>โรงเรียน:</strong> <span id="sumSchName">-</span></div>
+              <div><strong>ผู้ประสานงาน:</strong> <span id="sumSchCoord">-</span></div>
+              <div><strong>เบอร์โทรศัพท์:</strong> <span id="sumSchPhone">-</span></div>
+              <div><strong>อีเมลรับข้อมูล:</strong> <span id="sumSchEmail" style="color: #2563eb; font-weight: 700;">-</span></div>
+              <div><strong>จำนวนนักเรียน:</strong> <span id="sumSchCount" style="font-weight: 700; color: #065f46;">0 คน</span></div>
+              <div style="font-size: 1.2rem; color: #dc2626; font-weight: 800; border-top: 1px dashed #cbd5e1; padding-top: 0.5rem; margin-top: 0.5rem;">
+                ยอดรวมทั้งสิ้น: <span id="sumSchTotal">0 บาท</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bank Account Info -->
+          <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+            <div>
+              <div style="font-weight: 700; margin-bottom: 0.35rem;">💳 บัญชีสำหรับโอนเงินชำระค่าสมัคร:</div>
+              1. <strong>ธนาคารทหารไทยธนชาต (ttb)</strong> สาขานนทบุรี | เลขที่ <strong>191-2-03977-1</strong> (ชื่อบัญชี: โรงเรียนจินตศึกษา)<br>
+              2. <strong>ธนาคารกสิกรไทย</strong> สาขานนทบุรี | เลขที่ <strong>559-2-10047-0</strong> (ชื่อบัญชี: PAMA THAILAND)
+            </div>
+          </div>
+
+          <!-- Email Notice Warning -->
+          <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+            <div>
+              <div style="font-weight: 700; margin-bottom: 0.25rem;">⚠️ สำคัญมาก: การตรวจสอบอีเมลยืนยัน</div>
+              ระบบจะจัดส่งอีเมลยืนยันพร้อมสรุปรายชื่อและรหัส TAG ID จาก <strong>PAMATHAILANDAPP@gmail.com</strong> ให้ท่านทันที<br>
+              <strong>หากไม่พบอีเมลในกล่องจดหมายหลัก (Inbox) กรุณาตรวจสอบในโฟลเดอร์ "ถังขยะ" (Trash/Junk) หรือ "สแปมเมล" (Spam) ด้วยครับ</strong>
+            </div>
+          </div>
+
+          <!-- Agreement Checkbox -->
+          <label style="display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 1.5rem; cursor: pointer;">
+            <input type="checkbox" id="schAgree" style="margin-top: 0.25rem; width: 1.25rem; height: 1.25rem; accent-color: var(--primary-light);">
+            <span style="font-size: 0.88rem; color: #334155;">
+              ข้าพเจ้าขอรับรองว่าข้อมูลของนักเรียนและโรงเรียนถูกต้องครบถ้วน และยินยอมปฏิบัติตามกฎระเบียบการแข่งขันของ PAMA THAILAND
+            </span>
+          </label>
+          <span id="err-schAgree" class="err-msg"></span>
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- VIEW 4: SUCCESS CONFIRMATION SCREEN        -->
+      <!-- ========================================== -->
+      <div id="viewSuccess" class="hidden text-center" style="padding: 2rem 0;">
+        <div style="width: 5rem; height: 5rem; background: #dcfce7; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.5rem;">
+          ✓
+        </div>
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: #166534; margin-bottom: 0.5rem;">สมัครแข่งขันเรียบร้อยแล้ว!</h2>
+        <p style="color: #64748b; margin-bottom: 2rem;">ระบบได้ทำการบันทึกข้อมูลของท่านเข้าสู่ฐานข้อมูลเรียบร้อยแล้ว</p>
+
+        <!-- TAG ID Card -->
+        <div style="background: #eff6ff; border: 2px dashed #3b82f6; border-radius: 1rem; padding: 1.75rem; max-width: 26rem; margin: 0 auto 2rem;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.35rem;">
+            รหัสประจำตัวการสมัคร (TAG ID)
+          </div>
+          <div id="successTagId" style="font-size: 2.2rem; font-weight: 800; font-family: monospace; color: #1d4ed8; letter-spacing: 2px;">
+            PM26-IND-XXXX
+          </div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">
+            * โปรดบันทึกภาพหน้าจอนี้ไว้ หรือจดรหัส TAG ID ไว้ใช้อ้างอิง
+          </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1.5rem; max-width: 34rem; margin: 0 auto 2rem; text-align: left; font-size: 0.92rem;">
+          <h4 style="font-weight: 700; color: #1e3a8a; margin-bottom: 0.75rem;">📌 ขั้นตอนต่อไปสำหรับท่าน:</h4>
+          <ol style="margin-left: 1.25rem; line-height: 1.7; color: #334155;">
+            <li>ระบบได้จัดส่งอีเมลยืนยันไปยัง: <strong id="successEmailDisplay" style="color: #2563eb;"></strong> เรียบร้อยแล้ว</li>
+            <li style="color: #b91c1c; font-weight: 600;">
+              ⚠️ ตรวจสอบอีเมลในกล่อง Inbox หากไม่พบ กรุณาตรวจสอบในโฟลเดอร์ <u>"ถังขยะ" (Trash/Junk)</u> หรือ <u>"สแปมเมล" (Spam)</u>
+            </li>
+            <li>โอนชำระเงินค่าสมัคร และระบุรหัส <strong>TAG ID</strong> ในบันทึกช่วยจำ</li>
+            <li>ส่งสลิปหลักฐานการโอนเงินมาที่ Line Official: <strong>@090pkhtw</strong> พร้อมระบุรหัส TAG ID</li>
+          </ol>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="window.location.reload()">
+          กลับสู่หน้าหลัก / ทำรายการใหม่
+        </button>
+      </div>
+
+      <!-- Footer Action Buttons -->
+      <div id="footerControls" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 1.5rem; margin-top: 1.5rem;">
+        <button type="button" class="btn btn-secondary" id="btnBack" onclick="changeStep(-1)" disabled>
+          ← ย้อนกลับ
+        </button>
+        <button type="button" class="btn btn-primary" id="btnNext" onclick="changeStep(1)">
+          ถัดไป →
+        </button>
+        <button type="button" class="btn btn-success hidden" id="btnConfirmSubmit" onclick="confirmAndSubmitForm()">
+          ✓ ยืนยันการสมัครและรับอีเมล
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Contact & Credit Footer -->
+    <div style="text-align: center; color: var(--text-muted); font-size: 0.82rem; line-height: 1.6;">
+      ผู้รับผิดชอบโครงการ: โรงเรียนจินตศึกษา (PAMA THAILAND)<br>
+      โทร. 086-3359079 , 089-8937717 | Line Official : @090pkhtw | Facebook : www.facebook.com/pamathailandofficial<br>
+      © 2569 PAMA THAILAND. All Rights Reserved.
+    </div>
+
+  </div>
+
+  <!-- Loading & Delay Modal Overlay -->
+  <div class="overlay hidden" id="loadingModal">
+    <div class="modal-box">
+      <div class="spinner"></div>
+      <h3 id="modalTitle" style="font-size: 1.25rem; font-weight: 700; color: #1e3a8a; margin-bottom: 0.5rem;">
+        กำลังบันทึกข้อมูล...
+      </h3>
+      <p id="modalDesc" style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">
+        ระบบกำลังบันทึกลง Google Sheet และเตรียมส่งอีเมลยืนยัน กรุณารอสักครู่ (ประมาณ 3-5 วินาที)...
+      </p>
+      <div id="delayCountdown" style="margin-top: 0.75rem; font-weight: 700; color: #2563eb; font-size: 1.1rem;"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // URL ของ Google Apps Script Web App (หลัง Deploy ให้เปลี่ยนตรงนี้)
+    const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzfVWdHOosfaw3UzRLrrFBq1Xq3pceWRYFtNZUPepN-2JUVHNhj7skURa2_BhH0Kx6iBg/exec';
+
+    let regType = 'individual'; // 'individual' | 'school'
+    let currentStep = 1; // 1, 2, 3
+    let schoolStudents = [];
+
+    function switchType(type) {
+      regType = type;
+      currentStep = 1;
+      updateStepUI();
+
+      if (type === 'individual') {
+        document.getElementById('btnTypeInd').classList.add('active');
+        document.getElementById('btnTypeSch').classList.remove('active');
+        document.getElementById('viewIndividual').classList.remove('hidden');
+        document.getElementById('viewSchool').classList.add('hidden');
+      } else {
+        document.getElementById('btnTypeSch').classList.add('active');
+        document.getElementById('btnTypeInd').classList.remove('active');
+        document.getElementById('viewSchool').classList.remove('hidden');
+        document.getElementById('viewIndividual').classList.add('hidden');
+      }
+      window.scrollTo({ top: 150, behavior: 'smooth' });
+    }
+
+    function clearErr(fieldId) {
+      const el = document.getElementById(fieldId);
+      if (el) el.classList.remove('input-error');
+      const errEl = document.getElementById('err-' + fieldId);
+      if (errEl) errEl.innerText = '';
+    }
+
+    function calculateIndAge() {
+      const bDate = document.getElementById('indBirthDate').value;
+      if (!bDate) return;
+      const birthYear = new Date(bDate).getFullYear();
+      const currentYear = 2026; // ปีแข่งขัน 2569 / 2026
+      const age = Math.max(0, currentYear - birthYear);
+      document.getElementById('indAge').value = age;
+    }
+
+    function toggleIndShirt(checked) {
+      const box = document.getElementById('indShirtSizeBox');
+      if (checked) {
+        box.classList.remove('hidden');
+      } else {
+        box.classList.add('hidden');
+        document.getElementById('indShirtSize').value = '';
+        clearErr('indShirtSize');
+      }
+    }
+
+    function updateIndCost() {
+      const math = document.getElementById('subMath').checked;
+      const eng = document.getElementById('subEng').checked;
+      const shirt = document.getElementById('indBuyShirt').checked;
+
+      // Card active styling
+      document.getElementById('cardSubMath').classList.toggle('selected', math);
+      document.getElementById('cardSubEng').classList.toggle('selected', eng);
+
+      let subCount = (math ? 1 : 0) + (eng ? 1 : 0);
+      let fee = 0;
+      if (subCount === 1) fee = 600;
+      else if (subCount === 2) fee = 1100;
+
+      let shirtFee = shirt ? 200 : 0;
+      let total = fee + shirtFee;
+
+      document.getElementById('indFeePreview').innerText = fee.toLocaleString() + ' บาท';
+      document.getElementById('indShirtFeePreview').innerText = shirtFee.toLocaleString() + ' บาท';
+      document.getElementById('indTotalPreview').innerText = total.toLocaleString() + ' บาท';
+
+      if (subCount > 0) clearErr('indSubjects');
+    }
+
+    // Step Navigation
+    function changeStep(direction) {
+      if (direction === 1 && !validateCurrentStep()) {
+        return;
+      }
+
+      currentStep += direction;
+      updateStepUI();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function updateStepUI() {
+      // Update Stepper
+      for (let s = 1; s <= 3; s++) {
+        const circle = document.getElementById('circle-' + s);
+        const item = document.getElementById('step-tracker-' + s);
+        if (s === currentStep) {
+          circle.className = 'step-circle active';
+          item.className = 'step-item active';
+        } else if (s < currentStep) {
+          circle.className = 'step-circle active';
+          item.className = 'step-item';
+        } else {
+          circle.className = 'step-circle inactive';
+          item.className = 'step-item';
+        }
+      }
+      document.getElementById('line-1').className = currentStep >= 2 ? 'step-line active' : 'step-line';
+      document.getElementById('line-2').className = currentStep >= 3 ? 'step-line active' : 'step-line';
+
+      // Toggle views
+      if (regType === 'individual') {
+        document.getElementById('ind-step-1').classList.toggle('hidden', currentStep !== 1);
+        document.getElementById('ind-step-2').classList.toggle('hidden', currentStep !== 2);
+        document.getElementById('ind-step-3').classList.toggle('hidden', currentStep !== 3);
+        if (currentStep === 3) populateIndividualSummary();
+      } else {
+        document.getElementById('sch-step-1').classList.toggle('hidden', currentStep !== 1);
+        document.getElementById('sch-step-2').classList.toggle('hidden', currentStep !== 2);
+        document.getElementById('sch-step-3').classList.toggle('hidden', currentStep !== 3);
+        if (currentStep === 3) populateSchoolSummary();
+      }
+
+      // Buttons
+      document.getElementById('btnBack').disabled = (currentStep === 1);
+      if (currentStep === 3) {
+        document.getElementById('btnNext').classList.add('hidden');
+        document.getElementById('btnConfirmSubmit').classList.remove('hidden');
+      } else {
+        document.getElementById('btnNext').classList.remove('hidden');
+        document.getElementById('btnConfirmSubmit').classList.add('hidden');
+      }
+    }
+
+    function validateCurrentStep() {
+      let isValid = true;
+
+      if (regType === 'individual') {
+        if (currentStep === 1) {
+          const reqs = [
+            { id: 'indFullName', msg: 'กรุณากรอกชื่อ-นามสกุล' },
+            { id: 'indBirthDate', msg: 'กรุณาระบุวันเดือนปีเกิด' },
+            { id: 'indAge', msg: 'กรุณากรอกอายุ' },
+            { id: 'indLevel', msg: 'กรุณาเลือกระดับชั้น' },
+            { id: 'indSchool', msg: 'กรุณากรอกชื่อโรงเรียน' },
+            { id: 'indPhone', msg: 'กรุณากรอกเบอร์โทรศัพท์' },
+            { id: 'indEmail', msg: 'กรุณากรอกอีเมล' },
+            { id: 'indProvince', msg: 'กรุณากรอกจังหวัด' }
+          ];
+          reqs.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (!el || !el.value.trim()) {
+              if (el) el.classList.add('input-error');
+              const err = document.getElementById('err-' + item.id);
+              if (err) err.innerText = item.msg;
+              isValid = false;
+            }
+          });
+          // Check email pattern
+          const emailVal = document.getElementById('indEmail').value.trim();
+          if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            document.getElementById('indEmail').classList.add('input-error');
+            document.getElementById('err-indEmail').innerText = 'รูปแบบอีเมลไม่ถูกต้อง';
+            isValid = false;
+          }
+        } else if (currentStep === 2) {
+          const math = document.getElementById('subMath').checked;
+          const eng = document.getElementById('subEng').checked;
+          if (!math && !eng) {
+            document.getElementById('err-indSubjects').innerText = 'กรุณาเลือกวิชาที่ต้องการสมัครอย่างน้อย 1 วิชา';
+            isValid = false;
+          }
+          const shirt = document.getElementById('indBuyShirt').checked;
+          if (shirt) {
+            const size = document.getElementById('indShirtSize').value;
+            if (!size) {
+              document.getElementById('indShirtSize').classList.add('input-error');
+              document.getElementById('err-indShirtSize').innerText = 'กรุณาเลือกไซส์เสื้อ';
+              isValid = false;
+            }
+          }
+        }
+      } else {
+        // School Validation
+        if (currentStep === 1) {
+          const reqs = [
+            { id: 'schCoordName', msg: 'กรุณากรอกชื่อผู้ประสานงาน' },
+            { id: 'schPosition', msg: 'กรุณากรอกตำแหน่ง' },
+            { id: 'schName', msg: 'กรุณากรอกชื่อโรงเรียน' },
+            { id: 'schMobile', msg: 'กรุณากรอกเบอร์มือถือ' },
+            { id: 'schEmail', msg: 'กรุณากรอกอีเมล' },
+            { id: 'schProvince', msg: 'กรุณากรอกจังหวัด' }
+          ];
+          reqs.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (!el || !el.value.trim()) {
+              if (el) el.classList.add('input-error');
+              const err = document.getElementById('err-' + item.id);
+              if (err) err.innerText = item.msg;
+              isValid = false;
+            }
+          });
+          const emailVal = document.getElementById('schEmail').value.trim();
+          if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+            document.getElementById('schEmail').classList.add('input-error');
+            document.getElementById('err-schEmail').innerText = 'รูปแบบอีเมลไม่ถูกต้อง';
+            isValid = false;
+          }
+        } else if (currentStep === 2) {
+          if (schoolStudents.length === 0) {
+            document.getElementById('err-schStudents').innerText = 'กรุณาเพิ่มรายชื่อนักเรียนอย่างน้อย 1 คน';
+            isValid = false;
+          }
+        }
+      }
+
+      return isValid;
+    }
+
+    // Populate Individual Summary
+    function populateIndividualSummary() {
+      const prefix = document.getElementById('indPrefix').value;
+      const fullName = document.getElementById('indFullName').value;
+      document.getElementById('sumIndName').innerText = `${prefix} ${fullName}`;
+      document.getElementById('sumIndLevelSchool').innerText = `${document.getElementById('indLevel').value} / ${document.getElementById('indSchool').value}`;
+      document.getElementById('sumIndBirthAge').innerText = `${document.getElementById('indBirthDate').value} (อายุ ${document.getElementById('indAge').value} ปี)`;
+      document.getElementById('sumIndPhone').innerText = document.getElementById('indPhone').value;
+      document.getElementById('sumIndEmail').innerText = document.getElementById('indEmail').value;
+
+      const math = document.getElementById('subMath').checked;
+      const eng = document.getElementById('subEng').checked;
+      let subs = [];
+      if (math) subs.push("คณิตคิดเร็ว (M)");
+      if (eng) subs.push("ภาษาอังกฤษ (E)");
+      document.getElementById('sumIndSubjects').innerText = subs.join(" + ");
+
+      const shirt = document.getElementById('indBuyShirt').checked;
+      const size = document.getElementById('indShirtSize').value;
+      document.getElementById('sumIndShirt').innerText = shirt ? `สั่งซื้อ ไซส์ ${size} (200 บาท)` : 'ไม่สั่งซื้อ';
+      document.getElementById('sumIndTotal').innerText = document.getElementById('indTotalPreview').innerText;
+    }
+
+    // Populate School Summary
+    function populateSchoolSummary() {
+      document.getElementById('sumSchName').innerText = document.getElementById('schName').value;
+      document.getElementById('sumSchCoord').innerText = `${document.getElementById('schCoordName').value} (${document.getElementById('schPosition').value})`;
+      document.getElementById('sumSchPhone').innerText = document.getElementById('schMobile').value;
+      document.getElementById('sumSchEmail').innerText = document.getElementById('schEmail').value;
+      document.getElementById('sumSchCount').innerText = `${schoolStudents.length} คน`;
+      document.getElementById('sumSchTotal').innerText = document.getElementById('schTotalDisplay').innerText;
+    }
+
+    // Add Student to School List
+    function addStudentToList() {
+      const name = document.getElementById('addStuName').value.trim();
+      const level = document.getElementById('addStuLevel').value;
+      const birth = document.getElementById('addStuBirth').value;
+      const age = document.getElementById('addStuAge').value;
+      const math = document.getElementById('addStuMath').checked;
+      const eng = document.getElementById('addStuEng').checked;
+      const shirt = document.getElementById('addStuShirt').value;
+
+      if (!name) {
+        alert('กรุณากรอกชื่อ - สกุล นักเรียน');
+        document.getElementById('addStuName').focus();
+        return;
+      }
+      if (!math && !eng) {
+        alert('กรุณาเลือกวิชาแข่งขันอย่างน้อย 1 วิชา (คณิต หรือ อังกฤษ)');
+        return;
+      }
+
+      let subCount = (math ? 1 : 0) + (eng ? 1 : 0);
+      let fee = (subCount === 1) ? 600 : 1100;
+      let shirtFee = (shirt && shirt !== '-') ? 200 : 0;
+      let total = fee + shirtFee;
+
+      schoolStudents.push({
+        name, level, birthDate: birth, age,
+        math, eng, shirt, total
+      });
+
+      // Clear input
+      document.getElementById('addStuName').value = '';
+      document.getElementById('addStuBirth').value = '';
+      document.getElementById('addStuAge').value = '';
+      document.getElementById('addStuMath').checked = true;
+      document.getElementById('addStuEng').checked = false;
+      document.getElementById('addStuShirt').value = '-';
+      clearErr('schStudents');
+
+      renderStudentTable();
+    }
+
+    function removeStudent(index) {
+      if (confirm('ต้องการลบรายชื่อนักเรียนลำดับที่ ' + (index + 1) + ' หรือไม่?')) {
+        schoolStudents.splice(index, 1);
+        renderStudentTable();
+      }
+    }
+
+    function renderStudentTable() {
+      const tbody = document.getElementById('studentTableBody');
+      if (schoolStudents.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+              ยังไม่มีรายชื่อนักเรียน กรุณากรอกแบบฟอร์มด้านบนแล้วกด "➕ บันทึกลงตาราง"
+            </td>
+          </tr>
+        `;
+        document.getElementById('stuCountBadge').innerText = '0';
+        document.getElementById('schTotalStudentsDisplay').innerText = '0 คน';
+        document.getElementById('schTotalDisplay').innerText = '0 บาท';
+        return;
+      }
+
+      let totalSum = 0;
+      let html = '';
+      schoolStudents.forEach((s, idx) => {
+        totalSum += s.total;
+        html += `
+          <tr>
+            <td style="text-align: center; font-weight: 600;">${idx + 1}</td>
+            <td style="font-weight: 500;">${s.name}</td>
+            <td style="text-align: center;">${s.level}</td>
+            <td style="text-align: center;">${s.age ? s.age + ' ปี' : '-'}</td>
+            <td style="text-align: center; color: ${s.math ? '#16a34a' : '#94a3b8'}; font-weight: bold;">${s.math ? '✓' : '-'}</td>
+            <td style="text-align: center; color: ${s.eng ? '#16a34a' : '#94a3b8'}; font-weight: bold;">${s.eng ? '✓' : '-'}</td>
+            <td style="text-align: center;">${s.shirt !== '-' ? s.shirt : '-'}</td>
+            <td style="text-align: right; font-weight: 700; color: #dc2626;">${s.total.toLocaleString()}</td>
+            <td style="text-align: center;">
+              <button type="button" class="btn btn-danger" onclick="removeStudent(${idx})">ลบ</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+      document.getElementById('stuCountBadge').innerText = schoolStudents.length;
+      document.getElementById('schTotalStudentsDisplay').innerText = schoolStudents.length + ' คน';
+      document.getElementById('schTotalDisplay').innerText = totalSum.toLocaleString() + ' บาท';
+    }
+
+    // ==============================================================
+    // SUBMISSION WITH DELAY & EMAIL WARNING
+    // ==============================================================
+    async function confirmAndSubmitForm() {
+      // Validate Checkbox
+      if (regType === 'individual') {
+        const agree = document.getElementById('indAgree').checked;
+        if (!agree) {
+          document.getElementById('err-indAgree').innerText = 'กรุณาทำเครื่องหมายยอมรับข้อตกลงก่อนยืนยัน';
+          alert('กรุณาทำเครื่องหมายยินยอมรับรองข้อมูลก่อนกดยืนยันการสมัคร');
+          return;
+        }
+      } else {
+        const agree = document.getElementById('schAgree').checked;
+        if (!agree) {
+          document.getElementById('err-schAgree').innerText = 'กรุณาทำเครื่องหมายยอมรับข้อตกลงก่อนยืนยัน';
+          alert('กรุณาทำเครื่องหมายยินยอมรับรองข้อมูลก่อนกดยืนยันการสมัคร');
+          return;
+        }
+      }
+
+      const submitBtn = document.getElementById('btnConfirmSubmit');
+      submitBtn.disabled = true;
+
+      // Show Loading Modal with Delay Animation
+      const modal = document.getElementById('loadingModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const countdown = document.getElementById('delayCountdown');
+      modal.classList.remove('hidden');
+
+      let payload = {};
+      let actionType = '';
+
+      if (regType === 'individual') {
+        actionType = 'register_individual';
+        payload = {
+          prefix: document.getElementById('indPrefix').value,
+          fullName: document.getElementById('indFullName').value.trim(),
+          birthDate: document.getElementById('indBirthDate').value,
+          age: document.getElementById('indAge').value,
+          level: document.getElementById('indLevel').value,
+          school: document.getElementById('indSchool').value.trim(),
+          phone: document.getElementById('indPhone').value.trim(),
+          lineId: document.getElementById('indLine').value.trim(),
+          email: document.getElementById('indEmail').value.trim(),
+          address: document.getElementById('indAddress').value.trim(),
+          district: document.getElementById('indDistrict').value.trim(),
+          province: document.getElementById('indProvince').value.trim(),
+          postalCode: document.getElementById('indPostal').value.trim(),
+          fatherName: document.getElementById('indFatherName').value.trim(),
+          fatherPhone: document.getElementById('indFatherPhone').value.trim(),
+          motherName: document.getElementById('indMotherName').value.trim(),
+          motherPhone: document.getElementById('indMotherPhone').value.trim(),
+          mathSubject: document.getElementById('subMath').checked,
+          engSubject: document.getElementById('subEng').checked,
+          buyShirt: document.getElementById('indBuyShirt').checked,
+          shirtSize: document.getElementById('indShirtSize').value
+        };
+      } else {
+        actionType = 'register_school';
+        payload = {
+          coordinatorName: document.getElementById('schCoordName').value.trim(),
+          position: document.getElementById('schPosition').value.trim(),
+          schoolName: document.getElementById('schName').value.trim(),
+          address: document.getElementById('schAddress').value.trim(),
+          district: document.getElementById('schDistrict').value.trim(),
+          city: document.getElementById('schCity').value.trim(),
+          province: document.getElementById('schProvince').value.trim(),
+          postalCode: document.getElementById('schPostal').value.trim(),
+          tel: document.getElementById('schTel').value.trim(),
+          mobile: document.getElementById('schMobile').value.trim(),
+          lineId: document.getElementById('schLine').value.trim(),
+          email: document.getElementById('schEmail').value.trim(),
+          students: schoolStudents
+        };
+      }
+
+      modalTitle.innerText = "กำลังเชื่อมต่อ Google Sheet...";
+      modalDesc.innerText = "กำลังบันทึกข้อมูลและสั่งระบบส่งอีเมลยืนยัน...";
+
+      try {
+        // ทำการส่งข้อมูล
+        const responsePromise = fetch(GAS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: actionType, data: payload })
+        });
+
+        // ตั้งดีเลย์ขั้นต่ำ 3 วินาที เพื่อรอให้ Google Sheet บันทึกและสร้างความพร้อมของระบบ
+        let secondsLeft = 3;
+        countdown.innerText = `กำลังประมวลผล... (${secondsLeft} วิ)`;
+        const timer = setInterval(() => {
+          secondsLeft--;
+          if (secondsLeft > 0) {
+            countdown.innerText = `กำลังประมวลผล... (${secondsLeft} วิ)`;
+          } else {
+            countdown.innerText = `กำลังตรวจสอบการส่งอีเมล...`;
+            clearInterval(timer);
+          }
+        }, 1000);
+
+        const [response] = await Promise.all([
+          responsePromise,
+          new Promise(resolve => setTimeout(resolve, 3200)) // หน่วงเวลา 3.2 วินาที
+        ]);
+
+        const responseText = await response.text();
+        let result;
+        try {
+          result = JSON.parse(responseText);
+        } catch (e) {
+          throw new Error("ระบบตอบกลับไม่ถูกต้อง: " + responseText.substring(0, 100));
+        }
+
+        if (result.success) {
+          modal.classList.add('hidden');
+          // ซ่อนหน้ากรอกข้อมูล แสดงหน้าสำเร็จ
+          document.getElementById('viewIndividual').classList.add('hidden');
+          document.getElementById('viewSchool').classList.add('hidden');
+          document.getElementById('typeSwitcher').classList.add('hidden');
+          document.getElementById('footerControls').classList.add('hidden');
+          document.querySelector('.step-wrapper').classList.add('hidden');
+
+          document.getElementById('successTagId').innerText = result.tagID;
+          document.getElementById('successEmailDisplay').innerText = result.email || payload.email;
+          document.getElementById('viewSuccess').classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // แจ้งเตือนเรื่องการตรวจถังขยะและสแปมเมล
+          setTimeout(() => {
+            alert(`🎉 สมัครแข่งขันเรียบร้อยแล้ว!\n\nรหัส TAG ID ของท่านคือ: ${result.tagID}\n\nระบบได้จัดส่งอีเมลยืนยันไปยัง: ${result.email || payload.email} แล้ว\n\n⚠️ คำแนะนำสำคัญ:\nหากไม่พบอีเมลในกล่องข้อความหลัก (Inbox) กรุณาตรวจสอบในโฟลเดอร์ "ถังขยะ" (Trash/Junk) หรือ "สแปมเมล" (Spam) ด้วยครับ`);
+          }, 300);
+
+        } else {
+          modal.classList.add('hidden');
+          submitBtn.disabled = false;
+          alert('เกิดข้อผิดพลาดในการบันทึก: ' + (result.error || 'ไม่สามารถบันทึกข้อมูลได้'));
+        }
+
+      } catch (err) {
+        modal.classList.add('hidden');
+        submitBtn.disabled = false;
+        alert('การเชื่อมต่อขัดข้อง: ' + err.message + '\n\nกรุณาตรวจสอบ URL ของ Google Apps Script หรือการเชื่อมต่ออินเทอร์เน็ต');
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
